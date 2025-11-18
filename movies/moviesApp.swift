@@ -9,6 +9,8 @@ import SwiftUI
 
 @main
 struct moviesApp: App {
+    @State var movieDataStore = MovieDataStore()
+    @State var pathStore = PathStore()
     var body: some Scene {
         WindowGroup {
             ContentView()

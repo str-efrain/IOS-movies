@@ -8,17 +8,18 @@
 import SwiftUI
 
 struct ContentView: View {
+    @Environment(PathStore.self) var pathStore
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        @Bindable var pathStore = pathStore
+        @State var loading = true
+        
+        if loading {
+            ProgressView()
+        } else {
+            NavigationStack(path: $pathStore.path) {
+                
+            }
         }
-        .padding()
+        
     }
-}
-
-#Preview {
-    ContentView()
 }
