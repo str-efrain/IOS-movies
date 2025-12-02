@@ -7,10 +7,14 @@
 
 import Foundation
 
-struct Movie: Codable, Hashable {
+struct Movie: Codable, Hashable, Comparable {
     var title: String
     var description: String
     var actors: [Actor]
     var director: Director
     var releaseDate: String
+    
+    static func < (lhs: Movie, rhs: Movie) -> Bool {
+            lhs.title < rhs.title   // or compare by releaseDate if preferred
+        }
 }

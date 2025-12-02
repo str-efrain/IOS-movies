@@ -13,7 +13,7 @@ struct moviesApp: App {
     @State var pathStore = PathStore()
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environment(movieDataStore).environment(pathStore)
         }
     }
 }
