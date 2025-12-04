@@ -14,24 +14,27 @@ struct ContentView: View {
     @State var loading = true
     var body: some View {
         @Bindable var pathStore = pathStore
-        NavigationStack(path: $pathStore.path) {
+        VStack{
             if loading {
                 ProgressView("Loading...")
             } else {
-                List(movieDataStore.getMovies(), id: \.self, selection: $selectedMovie) { movie in
-                    NavigationLink(value: Routes.movie(movie)){
-                        VStack(alignment: .leading) {
-                            Text(movie.title).bold()
-                            Text(movie.description)
-                            Divider()
+                NavigationStack(path: $pathStore.path) {
+                    List(movieDataStore.getMovies(), id: \.self, selection: $selectedMovie) { movie in
+                        NavigationLink(value: Routes.movieType(movie)){
+                            VStack(alignment: .leading) {
+                                Text(movie.title).bold()
+                                Text(movie.description).italic()
+                            }
                         }
-                    }
-                }.navigationDestination(for: Routes.self) { route in
-                    switch route {
-                        case let .actor(actor: actor):
+                    }.navigationDestination(for: Routes.self) { route in
+                        switch route {
+                        case let .actorType(actor):
                             ActorDetailView(actor: actor)
-                    case let .director(director: director)
-                        DirectorDetailView
+                        case let .directorType(director):
+                            DirectorDetailView(director: director)
+                        case let .movieType(movie):
+                            MovieDetailView(movie: movie)
+                        }
                     }
                 }
             }
@@ -39,7 +42,6 @@ struct ContentView: View {
             await movieDataStore.loadData()
             loading = false
         }
-        
     }
+    
 }
-

@@ -37,8 +37,7 @@ class MovieDataStore {
     func getActors(director: Director) -> [Actor] {
         let movies = movies.movies
         
-        var actors: [Actor] = []   // Initialize the array
-        
+        var actors: [Actor] = []  
         for movie in movies where movie.director == director {
             actors.append(contentsOf: movie.actors)
         }

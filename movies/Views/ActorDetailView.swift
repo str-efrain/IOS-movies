@@ -11,5 +11,6 @@ struct ActorDetailView: View {
     var actor: Actor
     var body: some View {
         Text("Hello \(actor.firstName)")
+        PathView()
     }
 }
