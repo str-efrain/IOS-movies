@@ -8,9 +8,22 @@
 import SwiftUI
 
 struct ActorDetailView: View {
+    @Environment(MovieDataStore.self) var movieDS
     var actor: Actor
     var body: some View {
-        Text("Hello \(actor.firstName)")
-        PathView()
+        VStack {
+            Text("Actor: \(actor.firstName) \(actor.lastName)").bold().foregroundStyle(.tint)
+            Divider()
+            Text("Birthday: \(actor.birthday)")
+            Spacer()
+            Divider()
+            Text("Movie(s)").bold()
+            ForEach(movieDS.getMovies(actor: actor), id: \.self) { movie in
+                NavigationLink("\(movie.title)", value: Routes.movieType(movie)).foregroundStyle(.tint)
+            }
+            Spacer()
+            Divider()
+            PathView()
+        }
     }
 }
